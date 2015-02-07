@@ -6,6 +6,7 @@
 // Setup and Load
 var canvas = document.getElementById('ctx');
 var ctx = canvas.getContext('2d');
+    ctx.font = "12px monospace";
 var bg = document.getElementById('main');
 bg.addEventListener('keydown', keyDown, true);
 function keyDown(e) {
@@ -85,6 +86,27 @@ function drawHCursor() {
   hCursor.draw(ctx);
 }
 
+function drawStats() {
+  var y = 200;
+  var allHeros = [];
+  
+  allHeros = allHeros.concat(heroUnits, heroUnitsFallen);
+  allHeros = allHeros.sort(function(u1, u2) {
+    return u1.sprite.destY > u2.sprite.destY;
+  });
+  allHeros.forEach(function(unit) {
+    var name = unit.name;
+    if (name.length < 8) {
+      var l = 8 - name.length;
+      for (var i = 0; i < l; i++) {
+        name += " ";
+      }
+    }
+    var t = "" + name + "" + unit.HP + "/" + unit.maxHP;
+    ctx.fillText(t, 130, y);
+    y += 15;
+  });
+}
 
 var render = function() {
   ctx.clearRect(0,0,500,500);
@@ -100,6 +122,7 @@ var render = function() {
     drawCursor();
     drawHCursor();
   }
+  drawStats();
 };
 
 var tick = function() {
@@ -143,7 +166,6 @@ var processActionQueue = function() {
 function gameloop() {
   gameUnits = monsterUnits.concat(heroUnits, heroUnitsFallen);
   window.requestAnimationFrame(render);
-  console.log(actionQueue);
   if (monsterUnits.length === 0) {
     console.log("WIN");
     return;

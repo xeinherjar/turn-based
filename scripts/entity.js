@@ -11,6 +11,7 @@ function Entity(options) {
   this.name = options.name || "Default";
 
   this.HP = options.HP || 0;
+  this.maxHP = options.HP || 0;
   this.MP = options.MP || 0;
 
   this.atk = options.atk || 0;
