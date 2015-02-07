@@ -103,6 +103,11 @@ function drawStats() {
       }
     }
     var t = "" + name + "" + unit.HP + "/" + unit.maxHP;
+    if (unit === activeHero && activeHero.ready === true) {
+      ctx.fillStyle = "red";
+    } else {
+      ctx.fillStyle = "black";
+    }
     ctx.fillText(t, 130, y);
     y += 15;
   });
@@ -145,7 +150,11 @@ var processActionQueue = function() {
     var hero = heroUnits[r];
     unit.attack(hero);
     console.log(hero.name + " has " + hero.HP + " HP");
-    if (hero.HP <= 0) { hero.fallen(); }
+    if (hero.HP <= 0) { 
+      hero.HP = 0;   
+      hero.fallen();
+    }
+
     unit.ready = false;
   }
 
@@ -164,16 +173,22 @@ var processActionQueue = function() {
 // Select turn, act, next
 // if player == down, then skip they are fallen.
 function gameloop() {
-  gameUnits = monsterUnits.concat(heroUnits, heroUnitsFallen);
-  window.requestAnimationFrame(render);
   if (monsterUnits.length === 0) {
-    console.log("WIN");
+    ctx.clearRect(0,0,500,500);
+    ctx.fillStyle = 'green';
+    ctx.fillText('You won the battle!', 100, 100);
     return;
   }
   if (heroUnits.length === 0) {
-    console.log("LOST");
+    ctx.clearRect(0,0,500,500);
+    ctx.fillStyle = 'red';
+    ctx.fillText('You LOST the battle! :(', 80, 100);
     return;
   }
+
+  gameUnits = monsterUnits.concat(heroUnits, heroUnitsFallen);
+  window.requestAnimationFrame(render);
+
   if (activeHero.ready) {
     return;
   }

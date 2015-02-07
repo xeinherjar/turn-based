@@ -37,7 +37,8 @@ function Entity(options) {
 Entity.prototype.cast = function() { console.log("Cast"); };
 Entity.prototype.useItem = function() { console.log("Item"); };
 Entity.prototype.attack = function(target) { 
-  target.HP -= this.atk;  
+  var atk = Math.floor(Math.random() * this.atk);
+  target.HP -= atk;
 };
 Entity.prototype.fallen = function() { 
   // remove from enemey array 
