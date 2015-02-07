@@ -7,7 +7,10 @@
 var canvas = document.getElementById('ctx');
 var ctx = canvas.getContext('2d');
     ctx.font = "12px monospace";
+
+var audio = document.getElementById('battle-theme');
 var bg = document.getElementById('main');
+
 bg.addEventListener('keydown', keyDown, true);
 function keyDown(e) {
   if (activeHero.ready) {
@@ -71,9 +74,9 @@ var hCursor = new Sprite({ src : 'sprites/icons.png',
                           destX: 0, destY: 0, destW: 12, destH: 8});
 
 function drawCursor() {
-  cursor.destX = monsterUnits[select].sprite.destX + 
+  cursor.destX = monsterUnits[select].sprite.destX +
               (monsterUnits[select].sprite.srcH / 2);
-  cursor.destY = monsterUnits[select].sprite.destY + 
+  cursor.destY = monsterUnits[select].sprite.destY +
               (monsterUnits[select].sprite.srcW / 2);
   cursor.draw(ctx);
 }
@@ -81,7 +84,7 @@ function drawCursor() {
 function drawHCursor() {
   hCursor.destX = activeHero.sprite.destX +
               (activeHero.sprite.srcW / 2) - 4;
-  hCursor.destY = activeHero.sprite.destY - 10; 
+  hCursor.destY = activeHero.sprite.destY - 10;
 //              (activeHero.sprite.destY);
   hCursor.draw(ctx);
 }
@@ -89,7 +92,7 @@ function drawHCursor() {
 function drawStats() {
   var y = 200;
   var allHeros = [];
-  
+
   allHeros = allHeros.concat(heroUnits, heroUnitsFallen);
   allHeros = allHeros.sort(function(u1, u2) {
     return u1.sprite.destY > u2.sprite.destY;
@@ -150,8 +153,8 @@ var processActionQueue = function() {
     var hero = heroUnits[r];
     unit.attack(hero);
     console.log(hero.name + " has " + hero.HP + " HP");
-    if (hero.HP <= 0) { 
-      hero.HP = 0;   
+    if (hero.HP <= 0) {
+      hero.HP = 0;
       hero.fallen();
     }
 
@@ -177,12 +180,14 @@ function gameloop() {
     ctx.clearRect(0,0,500,500);
     ctx.fillStyle = 'green';
     ctx.fillText('You won the battle!', 100, 100);
+    audio.pause();
     return;
   }
   if (heroUnits.length === 0) {
     ctx.clearRect(0,0,500,500);
     ctx.fillStyle = 'red';
     ctx.fillText('You LOST the battle! :(', 80, 100);
+    audio.pause();
     return;
   }
 
