@@ -36,9 +36,14 @@ function Entity(options) {
 
 Entity.prototype.cast = function() { console.log("Cast"); };
 Entity.prototype.useItem = function() { console.log("Item"); };
-Entity.prototype.attack = function(target) { 
+Entity.prototype.attack = function(target, context) { 
   var atk = Math.floor(Math.random() * this.atk);
   target.HP -= atk;
+  var x = target.sprite.destX + 5;
+  var y = target.sprite.destY;
+  context.fillStyle = "red";
+  context.font = "32px monospace";
+  context.fillText(atk, x, y); 
 };
 Entity.prototype.fallen = function() { 
   // remove from enemey array 

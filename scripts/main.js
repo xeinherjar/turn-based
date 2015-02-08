@@ -33,7 +33,7 @@ function keyDown(e) {
         break;
       case 13: //enter
         console.log("ENTER");
-        activeHero.attack(monsterUnits[select]);
+        activeHero.attack(monsterUnits[select], ctx);
         activeHero.ready = false;
          if (monsterUnits[select].HP <= 0) {
           monsterUnits[select].fallen();
@@ -106,11 +106,14 @@ function drawStats() {
       }
     }
     var t = "" + name + "" + unit.HP + "/" + unit.maxHP;
-    if (unit === activeHero && activeHero.ready === true) {
+    if (unit === activeHero && activeHero.ready === true) {font = "32px monospace";
+      ctx.font = "12px monospace";
       ctx.fillStyle = "red";
     } else {
+      ctx.font = "12px monospace";
       ctx.fillStyle = "black";
     }
+    ctx.font = "12px monospace";
     ctx.fillText(t, 130, y);
     y += 15;
   });
@@ -151,7 +154,7 @@ var processActionQueue = function() {
     // select Hero to attack
     var r = Math.floor(Math.random() * heroUnits.length);
     var hero = heroUnits[r];
-    unit.attack(hero);
+    unit.attack(hero, ctx);
     console.log(hero.name + " has " + hero.HP + " HP");
     if (hero.HP <= 0) {
       hero.HP = 0;
@@ -178,15 +181,17 @@ var processActionQueue = function() {
 function gameloop() {
   if (monsterUnits.length === 0) {
     ctx.clearRect(0,0,500,500);
+    ctx.font = "18px monospace";
     ctx.fillStyle = 'green';
-    ctx.fillText('You won the battle!', 100, 100);
+    ctx.fillText('You won the battle!', 20, 100);
     audio.pause();
     return;
   }
   if (heroUnits.length === 0) {
     ctx.clearRect(0,0,500,500);
+    ctx.font = "18px monospace";
     ctx.fillStyle = 'red';
-    ctx.fillText('You LOST the battle! :(', 80, 100);
+    ctx.fillText('You LOST the battle! :(', 5, 100);
     audio.pause();
     return;
   }
@@ -208,4 +213,4 @@ function gameloop() {
 
 
 
-var interval = setInterval(gameloop, 500);
+var interval = setInterval(gameloop, 700);

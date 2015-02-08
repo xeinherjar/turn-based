@@ -23,7 +23,7 @@ var monsterA = {
 var monsterB = {
   name : 'Ridder', 
 
-  HP : 600,
+  HP : 500,
   MP : 0,
 
   atk : 50,
@@ -32,7 +32,7 @@ var monsterB = {
   magicAtk : 0,
   magicDef : 0,
   magicEvade : 0,
-  speed : 80,
+  speed : 60,
   stamina : 0,
   strength : 0,
 
