@@ -25,7 +25,7 @@ function Entity(options) {
   this.strength = 0;
 
   this.items = {};
-  
+
   this.sprite = options.sprite || {};
 //  this.sprite.img = new Image();
 //  this.sprite.img.src = 'sprites/ruin-monsters.png';
@@ -36,21 +36,21 @@ function Entity(options) {
 
 Entity.prototype.cast = function() { console.log("Cast"); };
 Entity.prototype.useItem = function() { console.log("Item"); };
-Entity.prototype.attack = function(target, context) { 
+Entity.prototype.attack = function(target, context) {
   var atk = Math.floor(Math.random() * this.atk);
   target.HP -= atk;
   var x = target.sprite.destX + 5;
   var y = target.sprite.destY;
   context.fillStyle = "red";
   context.font = "32px monospace";
-  context.fillText(atk, x, y); 
+  context.fillText(atk, x, y);
 };
-Entity.prototype.fallen = function() { 
-  // remove from enemey array 
-  monsterUnits.splice(monsterUnits.indexOf(this), 1); 
+Entity.prototype.fallen = function() {
+  // remove from enemey array
+  monsterUnits.splice(monsterUnits.indexOf(this), 1);
   select = 0;
   // remove from screen
-  
+
   console.log(this.name + " has fallen.");
 };
 
@@ -71,12 +71,12 @@ function Hero(options) {
 Hero.prototype = Object.create(Entity.prototype);
 Hero.prototype.constructor = Hero;
 Hero.prototype.specialAtk = function() { console.log("SpecialAtk"); };
-Hero.prototype.fallen = function() { 
-  this.down = true; 
+Hero.prototype.fallen = function() {
+  this.down = true;
   this.ready = false;
   heroUnitsFallen.push(this);
-  heroUnits.splice(heroUnits.indexOf(this), 1); 
-  console.log(this.name + " has fallen... revive them!"); 
+  heroUnits.splice(heroUnits.indexOf(this), 1);
+  console.log(this.name + " has fallen... revive them!");
 
   var oldSprite = this.sprite;
   this.sprite = this.fallenSprite;
