@@ -103,5 +103,33 @@ function Sprite(options) {
     context.drawImage(this.img,
         this.srcX, this.srcY, this.srcW, this.srcH,
         this.destX, this.destY, this.destW, this.destH);
+
+  var img = context.getImageData(this.destX, this.destY, this.destW, this.destH);
+  var imgData = img.data;
+  var transparent = {r: 0, g: 0, b: 0, a: 0};
+  var cKey1 = {r: 255, g: 0, b: 255, a: 0};
+  var cKey2 = {r: 0, g: 128, b: 128, a: 0}; 
+  for(var i = 0; i < imgData.length; i+=4) {
+    var r = imgData[i],
+        g = imgData[i+1],
+        b = imgData[i+2];
+    if ( (r === cKey1.r &&
+          g === cKey1.g &&
+          b === cKey1.b) ||
+        ( r === cKey2.r &&
+          g === cKey2.g &&
+          b === cKey2.b) ) {
+      imgData[i] = transparent.r;
+      imgData[i+1] = transparent.g;
+      imgData[i+2] = transparent.b;
+      imgData[i+3] = transparent.a;
+    }
+
+  }
+
+  context.putImageData(img, this.destX, this.destY);
+
+
+
   };
 }
