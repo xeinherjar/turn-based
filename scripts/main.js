@@ -8,7 +8,9 @@ var canvas = document.getElementById('ctx');
 var ctx = canvas.getContext('2d');
     ctx.font = "12px monospace";
 
-var audio = document.getElementById('battle-theme');
+var battle_theme = document.getElementById('battle-theme');
+var lost_theme = document.getElementById('lost-theme');
+var win_theme = document.getElementById('win-theme');
 var bg = document.getElementById('main');
 
 bg.addEventListener('keydown', keyDown, true);
@@ -191,21 +193,21 @@ var processActionQueue = function() {
 // if player == down, then skip they are fallen.
 function gameloop() {
   if (monsterUnits.length === 0) {
-    audio.src = 'sprites/Victory_Fanfare.mp3';
     ctx.clearRect(0,0,500,500);
     ctx.font = "18px monospace";
     ctx.fillStyle = 'green';
     ctx.fillText('You won the battle!', 20, 100);
-    //audio.pause();
+    battle_theme.pause();
+    win_theme.play();
     return;
   }
   if (heroUnits.length === 0) {
-    audio.src = 'sprites/Game_Over.mp3';
     ctx.clearRect(0,0,500,500);
     ctx.font = "18px monospace";
     ctx.fillStyle = 'red';
     ctx.fillText('You LOST the battle! :(', 5, 100);
-    //audio.pause();
+    battle_theme.pause();
+    lost_theme.play();
     return;
   }
 
