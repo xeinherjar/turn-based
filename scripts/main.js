@@ -61,16 +61,16 @@ var actionQueue = [];
 
 var background = {};
 background.img = new Image();
-background.img.src = 'sprites/battle-backgrounds.png';
-background.sprite = {srcX: 526, srcY: 1296, srcW: 240, srcH: 148,
+background.img.src = 'sprites/sprites.png';
+background.sprite = {srcX: 1, srcY: 253, srcW: 240, srcH: 147,
                      destX: 0, destY: 0, destW: 256, destH: 164};
 
-var cursor = new Sprite({src : 'sprites/icons.png',
-                        srcX: 0, srcY: 0, srcW: 17, srcH: 17,
-                        destX: 0, destY: 0, destW: 17, destH: 17});
+var cursor = new Sprite({src : 'sprites/sprites.png',
+                        srcX: 101, srcY: 0, srcW: 17, srcH: 16,
+                        destX: 0, destY: 0, destW: 17, destH: 16});
 
-var hCursor = new Sprite({ src : 'sprites/icons.png',
-                          srcX: 18, srcY: 4, srcW: 12, srcH: 8,
+var hCursor = new Sprite({ src : 'sprites/sprites.png',
+                          srcX: 118, srcY: 4, srcW: 12, srcH: 8,
                           destX: 0, destY: 0, destW: 12, destH: 8});
 
 function drawCursor() {
@@ -144,6 +144,17 @@ var tick = function() {
   });
 };
 
+
+var atkImg1 = new Sprite({ src : 'sprites/sprites.png',
+                          srcX: 151, srcY: 0, srcW: 35, srcH: 40,
+                          destX: 0, destY: 0, destW: 35, destH: 40});
+
+var atkImg = function(target, context) {
+  var x = target.destX / 2;
+  var y = target.destY / 2;
+  atkImg1.sprite.draw(context);
+};
+
 var processActionQueue = function() {
   // Reset and update
 
@@ -180,19 +191,21 @@ var processActionQueue = function() {
 // if player == down, then skip they are fallen.
 function gameloop() {
   if (monsterUnits.length === 0) {
+    audio.src = 'sprites/Victory_Fanfare.mp3';
     ctx.clearRect(0,0,500,500);
     ctx.font = "18px monospace";
     ctx.fillStyle = 'green';
     ctx.fillText('You won the battle!', 20, 100);
-    audio.pause();
+    //audio.pause();
     return;
   }
   if (heroUnits.length === 0) {
+    audio.src = 'sprites/Game_Over.mp3';
     ctx.clearRect(0,0,500,500);
     ctx.font = "18px monospace";
     ctx.fillStyle = 'red';
     ctx.fillText('You LOST the battle! :(', 5, 100);
-    audio.pause();
+    //audio.pause();
     return;
   }
 

@@ -39,9 +39,9 @@ var monsterB = {
   items : {},
  
   sprite : new Sprite({
-            src : 'sprites/ruin-monsters.png', 
-            srcX: 325, srcY: 142, srcW: 96, srcH: 90,
-            destX: 0, destY: 125, destW: 96, destH: 90}),
+            src : 'sprites/sprites.png', 
+            srcX: 0, srcY: 0, srcW: 98, srcH: 87,
+            destX: 0, destY: 125, destW: 98, destH: 87}),
 };
 
 var monsterC = {
@@ -63,8 +63,8 @@ var monsterC = {
   items : {},
    
   sprite : new Sprite({
-            src : 'sprites/ruin-monsters.png', 
-            srcX: 265, srcY: 844, srcW: 65, srcH: 70,
-            destX: 75, destY: 72, destW: 65, destH: 65}),
+            src : 'sprites/sprites.png', 
+            srcX: 0, srcY: 164, srcW: 66, srcH: 70,
+            destX: 75, destY: 72, destW: 66, destH: 70}),
 
 };
